@@ -1,2 +1,3 @@
-# readmedd
-dd for gh
+Заменить сайт и количество запросов 
+
+#bete to py
