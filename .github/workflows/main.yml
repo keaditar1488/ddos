@@ -46,7 +46,7 @@ jobs:
         Start-Sleep -Seconds 10
 
         # Send "500" and Enter to ddos.exe
-        [System.Windows.Forms.SendKeys]::SendWait("1000{ENTER}")
+        [System.Windows.Forms.SendKeys]::SendWait("300{ENTER}")
 
         # Wait for ddos.exe to finish
         $process.WaitForExit()
